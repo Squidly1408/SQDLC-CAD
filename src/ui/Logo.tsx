@@ -1,0 +1,9 @@
+export function Logo({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
+      <polygon points="16,3 27,9.5 16,16 5,9.5" fill="#9dc4ff" />
+      <polygon points="27,9.5 27,22.5 16,29 16,16" fill="#4f8ef7" />
+      <polygon points="5,9.5 5,22.5 16,29 16,16" fill="#2f5fb0" />
+    </svg>
+  )
+}
