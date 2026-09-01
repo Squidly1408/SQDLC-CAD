@@ -1,3 +1,5 @@
+![SQDLC-CAD Banner](./.github/banner.png)
+
 # SQDLC-CAD
 
 A free, browser-based 3D modeling / CAD tool. No sign-up, no account, no server —
