@@ -1,0 +1,258 @@
+/* Marketing landing page + legal pages. Reuses the design tokens from index.css so this
+   matches the editor's look, but (unlike App.css) lays out as a normal scrolling document —
+   these pages are read, not operated like the editor's fixed viewport shell. */
+
+.page-shell {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-0);
+  color: var(--text);
+}
+
+/* Header ------------------------------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  padding: calc(14px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) 14px
+    calc(20px + env(safe-area-inset-left));
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  min-width: 0;
+}
+
+.site-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #0c1116;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 40px;
+  align-items: center;
+}
+
+.site-nav-cta:hover {
+  background: var(--accent-hover);
+}
+
+/* Hero ----------------------------------------------------------------------------------- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 64px 24px 48px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero-secondary {
+  padding-top: 8px;
+  padding-bottom: 72px;
+}
+
+.hero-logo {
+  margin-bottom: 4px;
+}
+
+.hero h1 {
+  /* Column-flex items under align-items:center shrink-to-fit their content instead of
+     filling the container's width — without this the heading refuses to wrap and just
+     runs off the edge of a narrow viewport instead of breaking onto a second line. */
+  align-self: stretch;
+  margin: 0;
+  font-size: clamp(28px, 5vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.hero-sub {
+  /* Same shrink-to-fit issue as above; max-width still caps it on wide screens, and the
+     auto side margins re-center it once stretch's width is clamped down to that cap. */
+  align-self: stretch;
+  margin: 0 auto;
+  color: var(--text-dim);
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 480px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  background: var(--accent);
+  color: #0c1116;
+  border-radius: 8px;
+  padding: 0 24px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 6px;
+  box-shadow: 0 8px 24px rgba(79, 142, 247, 0.25);
+}
+
+.cta-button:hover {
+  background: var(--accent-hover);
+}
+
+/* Feature grid ----------------------------------------------------------------------------- */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+.feature-card {
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feature-icon {
+  font-size: 20px;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.feature-card h3 {
+  margin: 0;
+  font-size: 14.5px;
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Legal pages -------------------------------------------------------------------------- */
+
+.legal-content {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  flex: 1;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+.legal-content h1 {
+  margin: 0 0 4px;
+  font-size: 26px;
+}
+
+.legal-updated {
+  color: var(--text-dim);
+  font-size: 12.5px;
+  margin: 0 0 28px;
+}
+
+.legal-content h2 {
+  font-size: 16px;
+  margin: 28px 0 8px;
+}
+
+.legal-content p,
+.legal-content li {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.legal-content ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.legal-note {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  font-style: italic;
+}
+
+/* Footer --------------------------------------------------------------------------------- */
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px calc(20px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom))
+    calc(20px + env(safe-area-inset-left));
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 12.5px;
+  flex-shrink: 0;
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.site-footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.site-footer-links a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding: 44px 20px 36px;
+  }
+  .site-header {
+    padding-left: calc(16px + env(safe-area-inset-left));
+    padding-right: calc(16px + env(safe-area-inset-right));
+  }
+}

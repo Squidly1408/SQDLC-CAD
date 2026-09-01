@@ -20,6 +20,7 @@ export function NumberField({ label, value, step = 1, min, onChange }: NumberFie
       <span>{label}</span>
       <input
         type="number"
+        inputMode="decimal"
         step={step}
         min={min}
         value={text}

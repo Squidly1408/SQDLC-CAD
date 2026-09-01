@@ -16,9 +16,10 @@ npm install
 npm run dev
 ```
 
-Then open the printed `http://localhost:5173` URL. That's it — no accounts, no
-network calls, no external services. Everything (rendering, geometry, boolean
-operations, file export) happens in your browser.
+Then open the printed `http://localhost:5173` URL — it opens on a landing page; click
+**Launch App** (or go straight to `http://localhost:5173/#/app`) to get to the editor.
+That's it — no accounts, no network calls, no external services. Everything (rendering,
+geometry, boolean operations, file export) happens in your browser.
 
 To produce a static build you can host or open directly:
 
@@ -48,8 +49,12 @@ npm run preview # serve the production build locally to sanity-check it
 - Export the whole scene as `.stl` or `.obj`.
 - Object tree, duplicate, delete, full undo/redo.
 - Responsive layout: on phone/tablet widths the object list and inspector become slide-in
-  drawers (toggle via the ☰ and ⚙ buttons) and the toolbar scrolls horizontally; touch
-  drag/orbit/pinch-zoom work the same as mouse.
+  drawers (toggle via the ☰ and ⚙ buttons), the file-ops group collapses into a **File** dropdown,
+  and the rest of the toolbar scrolls horizontally; touch drag/orbit/pinch-zoom work the same as
+  mouse, touch targets are enlarged, and safe-area insets are respected on notched devices.
+- A landing page (`#/`) with a **Launch App** link into the editor (`#/app`), plus a
+  Privacy Policy (`#/privacy`) and Terms & Conditions (`#/terms`) — all client-side, hash-routed
+  pages with no server dependency.
 - Autosaves to your browser's local storage (IndexedDB) as you work — refreshing the
   page won't lose your model. You'll be prompted to restore it next time you open the app.
 - Save/Open projects as `.json` files.

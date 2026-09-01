@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSceneStore } from '../state/store'
 import type { PrimitiveType } from '../state/types'
 import { PRIMITIVE_LABELS } from '../state/types'
@@ -58,6 +58,19 @@ export function Toolbar({
   const selectedIds = useSceneStore((s) => s.selectedIds)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const importInputRef = useRef<HTMLInputElement>(null)
+  const [fileMenuOpen, setFileMenuOpen] = useState(false)
+  const fileMenuRef = useRef<HTMLDivElement>(null)
+
+  // On phone/tablet widths the file-ops group collapses into a dropdown (see .file-menu in
+  // App.css) — close it on an outside tap so it doesn't linger over the viewport.
+  useEffect(() => {
+    if (!fileMenuOpen) return
+    const onPointerDown = (e: PointerEvent) => {
+      if (!fileMenuRef.current?.contains(e.target as Node)) setFileMenuOpen(false)
+    }
+    window.addEventListener('pointerdown', onPointerDown)
+    return () => window.removeEventListener('pointerdown', onPointerDown)
+  }, [fileMenuOpen])
 
   const handleOpenClick = () => fileInputRef.current?.click()
   const handleImportClick = () => importInputRef.current?.click()
@@ -103,33 +116,46 @@ export function Toolbar({
         ☰
       </button>
 
-      <div className="brand">
+      <a className="brand" href="#/" title="Back to home">
         <Logo />
         <span className="brand-name">SQDLC-CAD</span>
-      </div>
+      </a>
 
       <div className="toolbar-divider" />
 
-      <div className="toolbar-group">
-        <button onClick={handleNew} title="New project">New</button>
-        <button onClick={handleOpenClick} title="Open project (.json)">Open</button>
-        <input ref={fileInputRef} type="file" accept="application/json" hidden onChange={handleFileChosen} />
+      <div className="toolbar-group file-menu-trigger" ref={fileMenuRef}>
         <button
-          onClick={() => saveProjectAs(useSceneStore.getState())}
-          title="Save project as .json"
+          className={`mobile-only ${fileMenuOpen ? 'active' : ''}`}
+          onClick={() => setFileMenuOpen((v) => !v)}
+          aria-expanded={fileMenuOpen}
+          title="File: new, open, save, import, export"
         >
-          Save As
+          File ▾
         </button>
-        <button onClick={handleImportClick} title="Import a model (.stl, .obj, .3mf, .step, .stp, .iges, .igs)">Import</button>
-        <input
-          ref={importInputRef}
-          type="file"
-          accept=".stl,.obj,.3mf,.step,.stp,.iges,.igs"
-          hidden
-          onChange={handleImportChosen}
-        />
-        <button onClick={() => exportSceneToSTL()} title="Export scene as STL">Export STL</button>
-        <button onClick={() => exportSceneToOBJ()} title="Export scene as OBJ">Export OBJ</button>
+        <div
+          className={`file-menu ${fileMenuOpen ? 'collapsible open' : 'collapsible'}`}
+          onClick={() => setFileMenuOpen(false)}
+        >
+          <button onClick={handleNew} title="New project">New</button>
+          <button onClick={handleOpenClick} title="Open project (.json)">Open</button>
+          <input ref={fileInputRef} type="file" accept="application/json" hidden onChange={handleFileChosen} />
+          <button
+            onClick={() => saveProjectAs(useSceneStore.getState())}
+            title="Save project as .json"
+          >
+            Save As
+          </button>
+          <button onClick={handleImportClick} title="Import a model (.stl, .obj, .3mf, .step, .stp, .iges, .igs)">Import</button>
+          <input
+            ref={importInputRef}
+            type="file"
+            accept=".stl,.obj,.3mf,.step,.stp,.iges,.igs"
+            hidden
+            onChange={handleImportChosen}
+          />
+          <button onClick={() => exportSceneToSTL()} title="Export scene as STL">Export STL</button>
+          <button onClick={() => exportSceneToOBJ()} title="Export scene as OBJ">Export OBJ</button>
+        </div>
       </div>
 
       <div className="toolbar-divider" />
